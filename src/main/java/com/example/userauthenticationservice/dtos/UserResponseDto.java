@@ -5,7 +5,8 @@ import com.example.userauthenticationservice.models.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,7 +14,7 @@ public class UserResponseDto {
     private String name;
     private Long phone;
     private String email;
-    private List<String> roles;
+    private Set<String> roles = new HashSet<>();
 
     public static UserResponseDto from(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();

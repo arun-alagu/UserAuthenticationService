@@ -5,10 +5,7 @@ import com.example.userauthenticationservice.models.Token;
 import com.example.userauthenticationservice.models.User;
 import com.example.userauthenticationservice.services.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -50,6 +47,14 @@ public class AuthController {
     @PostMapping("/reset/username")
     public void changeUsername(){}
 
-    @PostMapping("/token")
-    public void validateToken(@RequestBody ValidateTokenRequestDto validateTokenRequestDto){}
+    @GetMapping ("/validate/{token}")
+    public ResponseEntity<UserResponseDto> validateToken(@PathVariable String token){
+        User user = userService.validateToken(token);
+        if(user == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(
+                UserResponseDto.from(user)
+        );
+    }
 }

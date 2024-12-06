@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
     Token getTokenByUser_IdAndState(Long id, State l);
+
+    Token getTokenByValue(String token);
 }
